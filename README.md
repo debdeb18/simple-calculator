@@ -1,3 +1,4 @@
 # simple-calculator
+MIPS CPU Emulator
 simple calculator in C language
-simple MIPS CPU Emulator
+take binary file as input and perform according to MIPS CPU behavior
