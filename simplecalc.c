@@ -74,24 +74,23 @@ int* decode_instr() {
 
 	switch (op)
 	{
-	case 1:								//if instruction is J or B
-		rs = operand(instr_opnd1);		//define operand1
+	case 1:							//if instruction is J or B
+		rs = operand(instr_opnd1);				//define operand1
 		rt = 0;
-		dest = 0;					//operand2 and destination register is ignored
+		dest = 0;						//operand2 and destination register is ignored
 		break;
-	case 2:								//if instruction is M or C or arithmethic calc(+,-,*,/)
-		rs = operand(instr_opnd1);		//define operand1
-		rt = operand(instr_opnd2);		//define operand2
+	case 2:							//if instruction is M or C or arithmethic calc(+,-,*,/)
+		rs = operand(instr_opnd1);				//define operand1
+		rt = operand(instr_opnd2);				//define operand2
 		dest = 0;						//dest register is not needed (ignored)
 		break;
-	case 3:								//if instruction is M or C or arithmethic calc(+,-,*,/)
-		rs = operand(instr_opnd1);		//define operand1
-		rt = operand(instr_opnd2);		//define operand2
+	case 3:							//if instruction is M or C or arithmethic calc(+,-,*,/)
+		rs = operand(instr_opnd1);				//define operand1
+		rt = operand(instr_opnd2);				//define operand2
 		dest = 1;						//destination register is needed
 		break;
-	default:							//if (op == 0) - instruction is H or error in input
-		//do nothing
-		break;
+	default:						//if (op == 0) - instruction is H or error in input
+		break;							//do nothing
 	}
 
 	//	printf("DEC: %d.%d.%d.%d.%d\n", op, type, dest, rs, rt);
@@ -107,6 +106,7 @@ int* decode_instr() {
 	return dec_instr;
 }
 
+//extract opcode from instruction
 int opcode(char arr[MAX], int* type, int* op) {
 	char temp = arr[0];
 	switch (temp)
@@ -157,6 +157,7 @@ int opcode(char arr[MAX], int* type, int* op) {
 	return;
 }
 
+//extract operand from instruction
 int operand(char arr[MAX]) {
 	char temp = arr[0];
 	char temp1 = arr[1];
@@ -332,8 +333,8 @@ int main() {
 	//start fetch-decode-execude cycle
 	while (pc != mem_instr[s_addr]) {
 		fetch_instr(pc);
-		dec_instr = decode_instr(); //CU tells the system what to do
-		execute_instr(dec_instr, s_addr); //executing as told
+		dec_instr = decode_instr(); //Control Unit tells the system what to do
+		execute_instr(dec_instr, s_addr); //executing according to given signals
 	}
 
 	//close file
